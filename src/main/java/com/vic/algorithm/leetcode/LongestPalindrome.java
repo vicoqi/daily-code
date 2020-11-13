@@ -10,23 +10,32 @@ package com.vic.algorithm.leetcode;
  */
 public class LongestPalindrome {
 
-    //dp[i][j] = dp[i+1][j-1]
-    public String longestPalindrome(String s) {
+    //dp[i][j] = dp[i+1][j-1] && (s[i] == s[j])
+    public String myLongestPalindrome(String s) {
         boolean[][] dp = new boolean[s.length()][s.length()];
         for (int i = 0; i < s.length(); i++) {
             dp[i][i] = true;
         }
+
+        int maxLength = 0;
+        int startIndex = 0;
+
+        //这两个for 的起终，需要注意
         for (int j = 1; j < s.length(); j++) {
             for (int i = 0; i < j; i++) {
                 if (s.charAt(i) != s.charAt(j)){
                     dp[i][j] = false;
                 }else {
+                    //需要往内部找
                     dp[i][j] = dp[i+1][j-1];
                 }
-                if (dp[i][j] && )
+                if (dp[i][j] && j-i > maxLength){
+                    maxLength = j-i;
+                    startIndex = i;
+                }
             }
         }
-
+        return s.substring(startIndex, startIndex + maxLength);
     }
 
 
